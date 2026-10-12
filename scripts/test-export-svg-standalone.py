@@ -10,6 +10,8 @@ from __future__ import annotations
 import contextlib
 import io
 import importlib.util
+import contextlib
+import io
 import re
 import sys
 import tempfile
@@ -65,6 +67,35 @@ class ExportSvgStandaloneTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.mod = load_helper()
+
+    def test_nested_rule_groups_preserve_paint_and_animation_bindings(self) -> None:
+        for group in ("@layer base", "@container (min-width: 1px)", "@future-group paint"):
+            with self.subTest(group=group):
+                html = '<style>' + group + ' {@keyframes pulse {from {opacity:0;} to {opacity:1;}} .paint {fill:red;animation:pulse 1s;}}</style>'
+                html += '<svg viewBox="0 0 10 10"><rect class="paint"/></svg>'
+                svg = self.mod.export_svg_document(html, Path("group.html"))
+                css = embedded_css(svg)
+                self.assertIn(group + " {", css)
+                self.assertIn("#group-root .paint { fill:red;animation:group-root-pulse 1s; }", css)
+                self.assertIn("@keyframes group-root-pulse { from {opacity:0;} to {opacity:1;} }", css)
+                ET.fromstring(svg)
+
+    def test_stray_page_css_closing_braces_preserve_valid_rules(self) -> None:
+        body = '<svg viewBox="0 0 10 10"><rect class="paint"/><text class="label">x</text></svg>'
+        clean = '<style>.paint {fill:red;}.label {fill:blue;}</style>' + body
+        recovered = '<style>} .paint {fill:red;} } }.label {fill:blue;} }</style>' + body
+        self.assertEqual(self.mod.export_svg_document(recovered, Path("brace.html")),
+                         self.mod.export_svg_document(clean, Path("brace.html")))
+
+    def test_unknown_declaration_blocks_warn_without_losing_paint(self) -> None:
+        html = '<style>@property --paint {syntax:"<color>";inherits:false;initial-value:red;}.paint {fill:red;}</style>'
+        html += '<svg viewBox="0 0 10 10"><rect class="paint"/></svg>'
+        warning = io.StringIO()
+        with contextlib.redirect_stderr(warning):
+            svg = self.mod.export_svg_document(html, Path("property.html"))
+        self.assertNotIn("@property", embedded_css(svg))
+        self.assertIn("#property-root .paint { fill:red; }", embedded_css(svg))
+        self.assertIn("warning: dropping unsupported CSS block", warning.getvalue())
 
     def test_rgba_parent_normalizes_with_unrelated_page_paint(self) -> None:
         for prop in ("fill", "stroke"):
@@ -346,6 +377,25 @@ class ExportSvgStandaloneTests(unittest.TestCase):
         self.assertIn(r"#diagram-A\&\#38\;B stop { stop-color:blue; }", css)
         self.assertEqual([element.get("fill") for element in root.iter() if element.tag.endswith("}rect")],
                          ["url(#diagram-A&B)", "url(#diagram-A&#38;B)"])
+    def test_font_face_and_supports_do_not_block_export(self) -> None:
+        html = '<style>@font-face {font-family: Custom; src:url("custom.woff2");}'
+        html += '@supports (display: grid) {.paint {fill:#ff0000;}}</style>'
+        html += '<svg viewBox="0 0 10 10"><rect class="paint"/></svg>'
+        result = self.mod.export_svg_document(html, Path("custom-font.html"))
+        css = embedded_css(result)
+        self.assertIn('@font-face', css)
+        self.assertIn('font-family: Custom', css)
+        self.assertIn('@supports (display: grid)', css)
+        self.assertIn('#custom-font-root .paint', css)
+
+    def test_system_fonts_omits_custom_font_face(self) -> None:
+        html = '<style>@supports (display: grid) {@font-face {font-family: Custom; src:url("custom.woff2");} .label {font-family: Custom;}}</style>'
+        html += '<svg viewBox="0 0 10 10"><text class="label">Label</text></svg>'
+        css = embedded_css(self.mod.export_svg_document(html, Path("system-custom.html"), system_fonts=True))
+        self.assertNotIn("@font-face", css)
+        self.assertNotIn("custom.woff2", css)
+        self.assertNotIn("fonts.googleapis.com", css)
+        self.assertIn("#system-custom-root .label", css)
 
     def test_metadata_defs_382_ignores_data_id_inside_defs(self) -> None:
         markup = '<svg><defs><marker id="arrow"/><g data-id="ghost"/></defs><g data-id="arrow" data-href="#arrow"/><use href="#arrow"/></svg>'
@@ -575,6 +625,45 @@ class ExportSvgStandaloneTests(unittest.TestCase):
             html = f'<svg viewBox="0 0 10 10"><style>rect {{ {prop}\\2d opacity:0.5 }}</style><rect {prop}="rgba(255,0,0,0.5)"/></svg>'
             result = ET.fromstring(self.mod.export_svg_document(html, Path("escaped.html")))
             self.assertEqual(result.find("{http://www.w3.org/2000/svg}rect").get(prop), "rgba(255,0,0,0.5)")
+
+    def test_keyframes_and_bindings_are_scoped_together(self) -> None:
+        html = '<style>@keyframes pulse {from {fill:#ff0000} to {fill:#ff0000}}'
+        html += '@-webkit-keyframes other {to {opacity:1}}'
+        html += '.paint {animation:pulse var(--duration) linear, other 2s; animation-name:"pulse", other; content:"pulse; other";}'
+        html += '@media print {.paint {animation:none !important}}</style>'
+        html += '<svg viewBox="0 0 40 40"><rect class="paint" style="animation-name:pulse"/></svg>'
+        result = self.mod.export_svg_document(html, Path("frames.html"))
+        css = embedded_css(result)
+        self.assertIn('@keyframes frames-root-pulse { from {fill:#ff0000} to {fill:#ff0000} }', css)
+        self.assertIn('@-webkit-keyframes frames-root-other', css)
+        self.assertIn('animation:frames-root-pulse var(--duration) linear, frames-root-other 2s', css)
+        self.assertIn('animation-name:"frames-root-pulse", frames-root-other', css)
+        self.assertIn('content:"pulse; other"', css)
+        self.assertIn('style="animation-name:frames-root-pulse"', result)
+        self.assertIn('animation:none !important', css)
+        self.assertEqual(self.mod._animation_declarations('animation:pulse 1s steps(2, end)', {'pulse':'frames-pulse','steps':'frames-steps'}), 'animation:frames-pulse 1s steps(2, end)')
+        other = self.mod.export_svg_document(html, Path("second.html"))
+        self.assertNotIn('frames-root-pulse', other)
+        for value in ('var(--name)', 'pulse 1s, var(--other)'):
+            with self.subTest(value=value), self.assertRaisesRegex(ValueError, 'unresolved CSS animation name'):
+                self.mod._animation_declarations(f'animation:{value}', {'pulse':'frames-root-pulse'})
+        with self.assertRaisesRegex(ValueError, 'ambiguous CSS animation name'):
+            self.mod._animation_declarations('animation:linear 1s', {'linear':'frames-root-linear'})
+        with self.assertRaisesRegex(ValueError, 'unsupported SVG-local animation stylesheet'):
+            self.mod.export_svg_document(html.replace('<rect', '<style>.paint {animation:pulse 1s}</style><rect'), Path("local.html"))
+
+    def test_inline_animation_literals_decode_once_and_keep_comments(self) -> None:
+        for attribute in ('style="animation:&quot;linear&quot; 1s both"', "style='animation:\"linear\" 1s both'"):
+            html = '<style>@keyframes "linear" {to {fill:#ff0000}}</style>'
+            html += f'<svg viewBox="0 0 40 40"><rect {attribute}/></svg>'
+            result = self.mod.export_svg_document(html, Path("literal.html"))
+            shape = ET.fromstring(result).find("{http://www.w3.org/2000/svg}rect")
+            self.assertEqual(shape.get("style"), 'animation:"literal-root-linear" 1s both')
+        html = '<style>@keyframes pulse {to {fill:#ff0000}}</style><svg viewBox="0 0 40 40">'
+        html += '<rect style="/*note: retained;*/ animation-name:pulse; content:&quot;&amp;copy;&quot;"/></svg>'
+        result = self.mod.export_svg_document(html, Path("comment.html"))
+        shape = ET.fromstring(result).find("{http://www.w3.org/2000/svg}rect")
+        self.assertEqual(shape.get("style"), '/*note: retained;*/ animation-name:comment-root-pulse; content:"&copy;"')
     def test_quoted_urls_preserve_delimiters_and_exact_fragment_case(self) -> None:
         markup = '<svg><defs><linearGradient id="paint)"/></defs><style>.paint { fill:url("#paint)"); }</style></svg>'
         result = self.mod.namespace_defs_ids(markup, "quoted")
@@ -725,6 +814,29 @@ class ExportSvgStandaloneTests(unittest.TestCase):
         self.assertIn('<!-- fill="rgba(255,0,0,0.5)" -->', result)
         self.assertIn('<![CDATA[stroke="rgba(255,0,0,0.5)"]]>', result)
         self.assertIn('data-fill="rgba(255,0,0,0.5)"', result)
+
+    def test_conditional_diagram_css_retains_media_wrappers(self) -> None:
+        html = '<style>.paint {fill: #ff0000;} @media print { .paint {fill: #0000ff;} '
+        html += 'body {padding: 40px;} @media (min-width: 10px) {.edge {stroke: #00ff00;}} }</style>'
+        html += '<svg viewBox="0 0 40 40"><rect class="paint" width="40" height="40"/></svg>'
+        result = self.mod.export_svg_document(html, Path("media.html"))
+        css = embedded_css(result)
+        self.assertIn('@media print {', css)
+        self.assertIn('@media (min-width: 10px) {', css)
+        self.assertIn('#media-root .paint { fill: #0000ff; }', css)
+        self.assertNotIn('padding', css)
+        blocks = list(self.mod._css_blocks(css[css.index("');") + 3:]))
+        self.assertEqual(blocks[0][0], '#media-root .paint')
+        self.assertEqual(blocks[1][0], '@media print')
+        self.assertIn('#media-root .paint', blocks[1][1])
+        # Braces inside a string are not a nested block.
+        css = self.mod.diagram_css_from_html('<style>.label {content: "{x}";}</style>', 'root')
+        self.assertIn('content: "{x}"', css)
+        warnings = io.StringIO()
+        with contextlib.redirect_stderr(warnings):
+            css = self.mod.diagram_css_from_html('<style>@unknown {.paint {fill: red;}}</style>', 'root')
+        self.assertEqual(css, "@unknown {\n#root .paint { fill: red; }\n}")
+        self.assertEqual(warnings.getvalue(), "")
     def test_compound_original_root_does_not_gain_an_ancestor(self) -> None:
         for selector in ('.diagram#original .paint',
                          'svg.diagram#original .paint',
