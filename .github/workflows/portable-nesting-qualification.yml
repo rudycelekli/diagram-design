@@ -12,14 +12,10 @@ jobs:
       max-parallel: 2
       matrix:
         include:
-          - pr: '423'
-            head: b057df18cea0da63994a3f6786ef411a5396a8e0
+          - pr: '314'
+            head: 8c8c7f0fca98e8da02ff24b30f85aa6b86fbe269
           - pr: '421'
-            head: be9e68954ccad8c3cbb7cb68ce08daaa868d1d11
-          - pr: '422'
-            head: 16a5a6236a32909b46a03983f604f54d2e641d61
-          - pr: '387'
-            head: c3a1269b1ca01e89bd0d824da98821a04b5f198e
+            head: 27a7b578bdd5d8525918f1742cc265935600036f
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -45,14 +41,11 @@ jobs:
           python -m playwright install --with-deps chromium
       - name: Bind package version comparison to upstream base
         run: |
-          git -C candidate fetch https://github.com/cathrynlavery/diagram-design.git 0a8ea20ae69b33a5edce6018eedd3a9d26e90c1c
+          git -C candidate fetch https://github.com/cathrynlavery/diagram-design.git e80b91cc9c1745434cd2239c693df57100bd9bca
           git -C candidate update-ref refs/remotes/origin/main FETCH_HEAD
-          test "$(git -C candidate rev-parse origin/main)" = 0a8ea20ae69b33a5edce6018eedd3a9d26e90c1c
+          test "$(git -C candidate rev-parse origin/main)" = e80b91cc9c1745434cd2239c693df57100bd9bca
       - name: Run every mandatory gate on immutable candidate
         run: python harness/qualification-runner-${{ matrix.pr }}.py
-      - name: Actual browser alpha regression for escaped selector
-        if: matrix.pr == '423'
-        run: python harness/browser-proof-423.py
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
