@@ -1,0 +1,62 @@
+name: Oct13 existing diagram feedback qualification
+on:
+  push:
+    branches: [validation/diagram-feedback-oct13]
+permissions:
+  contents: read
+jobs:
+  full:
+    if: github.repository == 'rudycelekli/diagram-design' && github.event.repository.private == false
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        include:
+          - pr: '423'
+            head: b057df18cea0da63994a3f6786ef411a5396a8e0
+          - pr: '421'
+            head: be9e68954ccad8c3cbb7cb68ce08daaa868d1d11
+          - pr: '422'
+            head: 16a5a6236a32909b46a03983f604f54d2e641d61
+          - pr: '387'
+            head: c3a1269b1ca01e89bd0d824da98821a04b5f198e
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          path: harness
+          persist-credentials: false
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ matrix.head }}
+          path: candidate
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version: '22'
+      - name: Install repository-pinned browser dependencies
+        run: |
+          python -m pip install Pillow==12.1.1 playwright==1.62.0
+          python -m playwright install --with-deps chromium
+      - name: Bind package version comparison to upstream base
+        run: |
+          git -C candidate fetch https://github.com/cathrynlavery/diagram-design.git 0a8ea20ae69b33a5edce6018eedd3a9d26e90c1c
+          git -C candidate update-ref refs/remotes/origin/main FETCH_HEAD
+          test "$(git -C candidate rev-parse origin/main)" = 0a8ea20ae69b33a5edce6018eedd3a9d26e90c1c
+      - name: Run every mandatory gate on immutable candidate
+        run: python harness/qualification-runner-${{ matrix.pr }}.py
+      - name: Actual browser alpha regression for escaped selector
+        if: matrix.pr == '423'
+        run: python harness/browser-proof-423.py
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: diagram-feedback-${{ matrix.pr }}-full-proof
+          path: proof
+          retention-days: 1
+          compression-level: 9
