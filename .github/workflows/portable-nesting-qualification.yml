@@ -16,7 +16,7 @@ jobs:
           persist-credentials: false
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
-          ref: 92ab56beda9c1c56799cfcb7235360b5df2728db
+          ref: aa01b9e455f075b483fc91b9f38ace56566d4956
           path: candidate
           fetch-depth: 0
           persist-credentials: false

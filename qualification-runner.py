@@ -1,6 +1,6 @@
 import hashlib,json,pathlib,subprocess,time,sys
 root=pathlib.Path('candidate'); out=pathlib.Path('proof'); out.mkdir(exist_ok=True)
-expected='92ab56beda9c1c56799cfcb7235360b5df2728db'
+expected='aa01b9e455f075b483fc91b9f38ace56566d4956'
 assert subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip()==expected
 commands=json.loads(pathlib.Path('harness/qualification-commands.json').read_text()); assert len(commands)==81
 assert hashlib.sha256(pathlib.Path('harness/qualification-commands.json').read_bytes()).hexdigest() == '194a76f5a74de904108084c7ed7c02e93ac3f5f9f530545e8f34d2ef8d47f07f'
