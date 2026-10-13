@@ -594,6 +594,6 @@
     }
   ],
   "runtime": "Python3.12.14;Pillow12.1.1;Playwright1.62.0;ChromeHeadlessShell151.0.7922.34/rev1234;Claude2.1.229strictvalidator",
-  "doctor_note": "exit0 with1WARN: --only-shell installation can launch Chromium151 butdoctor checksfullchromium.executable_path; no full browser presence claimed",
+  "doctor_note": "Doctor exits0 with4PASS/1WARN/0FAIL. Its Chromium readiness probe reports TargetClosedError and a pending connection task; cause not established. Actual pinned browser render/self-test/export-wait gates pass separately.",
   "render_note": "215 files rendered0findings1unmeasurable scrolling serviceblueprintnote;46selftestcasespass"
 }
