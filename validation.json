@@ -1,0 +1,599 @@
+{
+  "repository": "cathrynlavery/diagram-design",
+  "source_base": "178d21b1d47fcc0731fcb7bdd912c27d4dbca6cf",
+  "tested_source_head": "05d9b97832a6d8ff1e269aab4a6d5672bf0e9a8c",
+  "screenshots": {
+    "double-baseline.png": "cad4b2a2ea4c98823e1080ec6b3f024ca5e51c89750f88ca45814595d904e961",
+    "double-head.png": "4b540c466c5ced6927e7488524e733315f2fcb3343e617ea1b78c9b20e76e22e"
+  },
+  "scope": "Raw synthetic source/export browser captures; no image editing. Actual standalone export helper. Three baseline selector-paint failures, fixed paint, healthy real-comment/escaped-slash controls.",
+  "browser_proof": "Chrome155.0.8059.40;15 computed-fill comparisons",
+  "helper_suite": "90methods headpass; baseline3 newliteral subtest failures",
+  "full_gates": [
+    {
+      "command": "python3 scripts/test-plugin-package.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "1cb5ac8184e96e24026ab61e1076bbcbd99f7f032620bc94b925d3baa5615c6f"
+    },
+    {
+      "command": "python3 scripts/test-maintainer-policy.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "c9479995c7e6cd131930a5d232e47b15503c35fb6b033930622f9583b7ae8b47"
+    },
+    {
+      "command": "python3 scripts/test-build-openai-plugin-zip.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "677db8dbe2c4ede15cf984e2b64e53b08bdf889226d5ba2024457a146434c537"
+    },
+    {
+      "command": "python3 scripts/verify-plugin-package.py --require-no-bump origin/main",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "3a15299c3c4d4ca9200697f7fe6f44bf6a4600fe46a70c1b96571f3a70785faf"
+    },
+    {
+      "command": "npx --yes @anthropic-ai/claude-code@2.1.229 plugin validate . --strict",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "f40000fc0995f31b2a2d64a6a50492ceee63a5a8eca6cc67fe7a9c9995c2dab0"
+    },
+    {
+      "command": "python3 scripts/test-lint-a11y.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "d0f272bf368d8780fe6064ce6629a1947eab4d63c39a046770b23f3b403e125e"
+    },
+    {
+      "command": "python3 scripts/verify-semantic-motion.py --markdown-only",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "2f096072e1f5a05e6e49089005f3638d753faf0e53d306dd655721984c560cdc"
+    },
+    {
+      "command": "python3 scripts/verify-semantic-motion.py --example-only",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "bbb160a598fcb0cbf399a2f639834119bc9f56c3905a60f263dfbb4e4b7fdc70"
+    },
+    {
+      "command": "python3 scripts/lint-skin.py skills/diagram-design/assets/example-policy-trace-animated.html",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "6f5d3a6bacc3481930ac8bf3efeac9d63ad09203caa791c980f2598699ee6612"
+    },
+    {
+      "command": "python3 scripts/test-verify-semantic-motion.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "725527a440632d55b1530c5a83dec29db324edb9440a10e8c2f052af0b26cb94"
+    },
+    {
+      "command": "python3 scripts/verify-motion.py --shipped",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "1675e06ac850ae0593a6e89fb07f889743cad0e53a6c5a6e2833815503316753"
+    },
+    {
+      "command": "python3 scripts/test-build-icons-quoted-attributes.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "8895d8bf9f158b621fedf586f9698851658543d2c62a6ac7324b4eaa23b1a5f3"
+    },
+    {
+      "command": "python3 scripts/test-build-icons-devicon.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "b3e085d0a12842053e808a30ccb942761fa1bc3df04c13087b14208a10d34222"
+    },
+    {
+      "command": "python3 scripts/test-fix-mojibake.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "caf490d31b5fc3a39d0a05a89f0cb5c350908508fc7227e94432e25910900233"
+    },
+    {
+      "command": "python3 scripts/lint-skin.py --all --baseline",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "e994d15cba0d9c59b0f28615d15aa37559df9c10679f7d28ea4c2e8bd7387678"
+    },
+    {
+      "command": "python3 scripts/test-verify-contrast.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "f8183387797b5f2faef5fae5d03a5d9a6acc2bf5cf6cff48b7b192efe1d74624"
+    },
+    {
+      "command": "python3 scripts/verify-contrast.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "8cd6b15894d5e5d8451357b6cc91ba1fc2081954191f3de4728b57f5f231d46f"
+    },
+    {
+      "command": "python3 scripts/lint-render.py --self-test",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "a0c33b10363c31aa47d027c06088558b8b888a0dfcdf314e4baec77103e74daf"
+    },
+    {
+      "command": "python3 scripts/lint-render.py --all",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "ade0f06a3d01a99bb7403f7322638981a7751faa8042bc38227d9150bcabb052"
+    },
+    {
+      "command": "python3 scripts/test-verify-polar.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "2b5a971ef6eda5d54a262cd19c04957ade6e6bc28228a72fca22a964c8f8c06e"
+    },
+    {
+      "command": "python3 scripts/verify-polar.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "83e382dcc3131f4203b40a21d6b7662d66c2bf2d92265d1334aad61746197290"
+    },
+    {
+      "command": "python3 scripts/verify-sequence-oauth.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "fc6478d5b11f87798ae50507d248a22005005a77d4f9edde96907bb588182f30"
+    },
+    {
+      "command": "python3 scripts/test-verify-sequence-oauth.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "0b970d4e80f0fd47eaf1169712aec285f53a0279e24e1f84f7c904d6dab7f084"
+    },
+    {
+      "command": "python3 scripts/verify-drawio-import.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "ccb51c53cb1a6feb897bfa334972fa9dbe31bc49ba7b178c6e32eb82cec9e1c6"
+    },
+    {
+      "command": "python3 scripts/test-verify-drawio-import.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "4a5003e815fdea3394d598538f08cf1d49ec6eb723cd389ee4547ee4d415c9a4"
+    },
+    {
+      "command": "python3 scripts/verify-mermaid-import.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "44a2307d8392f3f722188cf2666ba4427193b3a5b409b1848472a5eb809ba4fd"
+    },
+    {
+      "command": "python3 scripts/verify-excalidraw-import.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "eefb8c7d4a71ec3501cd4a799406022899f091fd9ec4c2a068f2da7b21b5451f"
+    },
+    {
+      "command": "python3 scripts/test-verify-excalidraw-import.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "6f54a056005d773846dd0888ed0c4645c40c0d6505af882fffd80cdd29e5c1c2"
+    },
+    {
+      "command": "python3 scripts/test-verify-motion.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "d2468c21ff78a273f3718e3fc6a16286e2866149fe8b06496ba31ed75ce7aecd"
+    },
+    {
+      "command": "python3 scripts/verify-doctor.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "670e4ede66e3d7999568d59ded5e652ed7e3d70b1a28ff971d36afdf383e8c97"
+    },
+    {
+      "command": "python3 scripts/test-verify-doctor.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "1ce3c9b09bc468584aaebe82d6cc544126996badd34af746695e587866403486"
+    },
+    {
+      "command": "python3 scripts/verify-docs-sync.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "072e7c7563dca8e323f92daaf9bc766be3ee91f096bb93c902097406084225f6"
+    },
+    {
+      "command": "python3 scripts/test-verify-docs-sync.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "276557252ba8ab96e03927af27209b0a6ee1ecaf819474249170a748e926a51e"
+    },
+    {
+      "command": "python3 scripts/verify-screenshot-freshness.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "0786d1f91d926a04ac04ebd5e1f2651fe2b46368e15f2c6d10784baa461cac28"
+    },
+    {
+      "command": "python3 scripts/test-verify-screenshot-freshness.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "09e9617d8fd2e64d24ebd3c50c9b1228cc1763439f4c0da841b2dd1f70a0ec26"
+    },
+    {
+      "command": "python3 scripts/test-build-readme-thumbs.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "1c8e3e2741305ae406aaac732cfacbe05a23f31fcc9b40575f9f48c9227a80d9"
+    },
+    {
+      "command": "python3 scripts/build-readme-thumbs.py --check",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "c117a1d0db6a8c4e34da76ecc120e924ed6c34b78ad7b0ca854d17a96e1a6f08"
+    },
+    {
+      "command": "python3 scripts/test-self-check.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "7eb6570e99bd8c96975f46d9d02dc8f5cf2e49d6b970fbbe3280180d66a09844"
+    },
+    {
+      "command": "python3 scripts/test-export-svg-standalone.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "7fcf66a73c6f20850c2ea694695ee8a3ef07d6befdb2c42dff80c784317152db"
+    },
+    {
+      "command": "python3 scripts/verify-geometry.py --all",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "0b5fe67bae473eb6d3d1c388f5c42665b1c5bcdef1c702f0b888905448c14088"
+    },
+    {
+      "command": "python3 scripts/test-verify-geometry.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "71ceb7e94cf325e9d48005bd18dd9c28a310b167dfe6a7dc4eb24353d3d53a25"
+    },
+    {
+      "command": "python3 scripts/verify-architecture-delta.py --all",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "5728dbc90b4efb20a7c10e3c2391a1cf14cc5cde720875577074912f7c8d89c7"
+    },
+    {
+      "command": "python3 scripts/test-verify-architecture-delta.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "f76afe651a5b69765d2e3940bb7cec5dd04e4c619a6aac73c3973d383f51e810"
+    },
+    {
+      "command": "python3 scripts/verify-architecture-containment.py --all",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "87ee13999c22a9b1e58c19d87ea7582f48fe07604bf37c7fa8e51a50adb91f01"
+    },
+    {
+      "command": "python3 scripts/test-verify-architecture-containment.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "a7903766b817deee0d46afb5b7791982c521dbdf0d0498355dfa4d198a0b340d"
+    },
+    {
+      "command": "python3 scripts/build-exploded-examples.py --check",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "d8ed5b19246c0331ab7aa60176798de48eda390b8b74e23f6b19126d13f233f9"
+    },
+    {
+      "command": "python3 scripts/verify-exploded.py --all",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "d1bd0df94e88018f3d487168133febe50a0230220fa9b668801547f02307d407"
+    },
+    {
+      "command": "python3 scripts/test-verify-exploded.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "2101a7cc19972df3cc0bc1a244de8664c467fb50b467178cf9db685875ddf4cb"
+    },
+    {
+      "command": "python3 scripts/build-axonometric-plan-examples.py --check",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "4e742648a55c1242b5051a6ef4882cce2fdd61c5b9c85a16c293ec04f711ba2d"
+    },
+    {
+      "command": "python3 scripts/verify-axonometric-plan.py --all",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "e4f65c6563d067d0cb0fc6c6eeb77191530e26fba4ac3b375c2e15d2e8aaa735"
+    },
+    {
+      "command": "python3 scripts/test-verify-axonometric-plan.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "6059bd618e9186432acea6e1667500dee69a60c96710ad916a9abcbd82861e30"
+    },
+    {
+      "command": "python3 scripts/verify-block-registry.py --all",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "0b5fe67bae473eb6d3d1c388f5c42665b1c5bcdef1c702f0b888905448c14088"
+    },
+    {
+      "command": "python3 scripts/test-verify-block-registry.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "b2ca9d6b2910e269ea0e5229b0f51f33f81e48bd7296c55472a45e367215969b"
+    },
+    {
+      "command": "python3 scripts/verify-treemap.py --all",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "0b942e94d64a1ec3f1f3e4b3061d8f9344c9999a6f05cfec1a115da6f0b0657b"
+    },
+    {
+      "command": "python3 scripts/test-verify-treemap.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "b9bdfb852ba8dabc8d07634183253d27dcda9703f0796ad56bdfc3e0f762fcc3"
+    },
+    {
+      "command": "python3 scripts/verify-marimekko.py --all",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "bbb9bfa0f198078890433db86b7284a3cbe2d72c68b94e1e8dae6c37a47707a3"
+    },
+    {
+      "command": "python3 scripts/test-verify-marimekko.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "30943f8de838a0d0fe3f30aa4fb4271fee14fc0caf2215cbae9c13e1060e4870"
+    },
+    {
+      "command": "python3 scripts/verify-dumbbell.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "0ff0df28f1b33b8195f697ca8e5c49f95dfc45dec63686f7ae903ef0c3341adc"
+    },
+    {
+      "command": "python3 scripts/test-verify-dumbbell.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "2027e74e58d01dd5635acf1f6069d72d2076a6123fbcde95e4320c1e2dd7bf57"
+    },
+    {
+      "command": "python3 scripts/verify-slopegraph.py --all",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "749e9b6716d050eab27c5405249a18fe28123ad364ec9e2a470c68bad6ee4279"
+    },
+    {
+      "command": "python3 scripts/test-verify-slopegraph.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "f89571e8fb3108ebf82e7c1ba3cb090297a64ee67ff77dfb8c75434cc5c497f2"
+    },
+    {
+      "command": "python3 scripts/verify-streamgraph.py --all",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "2d09334ebbfa3a27754638ed63429b747821daa4d03f711e7f32a56c19c48a5b"
+    },
+    {
+      "command": "python3 scripts/test-verify-streamgraph.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "8b3d71e01562eda439e216b8548b6696cad2db93e377692a28815aaee7867fb0"
+    },
+    {
+      "command": "python3 scripts/verify-ridgeline.py --all",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "f260e306503cfe2e49bb609b8a139736357411dacd1b782016a3c1ce4b2d8c37"
+    },
+    {
+      "command": "python3 scripts/test-verify-ridgeline.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "d3ee203e73455467e248e32329fdad4d51b4f8a757952582ee9e8dcf47d6a113"
+    },
+    {
+      "command": "python3 scripts/verify-sankey.py --all",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "37b5e43dc94fb739f4a2ed13cd999367a5f926051e13930541bfa6986afb8494"
+    },
+    {
+      "command": "python3 scripts/test-verify-sankey.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "edee99fa59743f78902143385c4e819b3defb7bd910b4436d10a5e1e23967a72"
+    },
+    {
+      "command": "python3 scripts/verify-waterfall.py --all",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "1e0a5aee30b0b2258d3da6f5bbab4c0fa7fcb853e9265c941b756def1c09061f"
+    },
+    {
+      "command": "python3 scripts/test-verify-waterfall.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "b15b3d317a71a81809d1d3a2e98475401c4279efafa3e81715b2b2ad2a5677db"
+    },
+    {
+      "command": "python3 scripts/verify-service-blueprint.py --all",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "9507211a388f10d393152094b35ac0a9d329482ed8b95f17e5c3bf153c8e34d4"
+    },
+    {
+      "command": "python3 scripts/test-verify-service-blueprint.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "18f42d84fbf553dea5aeb31943753a2314e0a66ad37a717c4cc27d25a4d1cbb2"
+    },
+    {
+      "command": "python3 scripts/verify-bubble.py --all",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "a6e84155f495488e861e17a56d7867d82feea47b26afb06b2833ddb993baf67a"
+    },
+    {
+      "command": "python3 scripts/test-verify-bubble.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "fff9cea6c44ed45d11258e7823eac788ac36447a4f391801633c545611c771d0"
+    },
+    {
+      "command": "python3 scripts/verify-bump.py --all",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "bd2ce8b6d19548e490f12d7edf3b67c23281b22e71e232477f36ce41edd3a81d"
+    },
+    {
+      "command": "python3 scripts/test-verify-bump.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "86fee5f11559c43cb61391a97e913da324999f8de42d4f7a96c60f1e705a4790"
+    },
+    {
+      "command": "python3 scripts/verify-beeswarm.py --all",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "19df4e172747f183de8e712f62ee30e68fd8657160df6690b85f3e97f43c102d"
+    },
+    {
+      "command": "python3 scripts/test-verify-beeswarm.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "38f79497892f2a469a3237554b2ffbf1adae84066310b953da01940ca1bac242"
+    },
+    {
+      "command": "python3 scripts/verify-skin-polarity.py --all",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "b5b8ba30336fef5df3c345f6da96dc8c310963765de62f4d79d715ee77f7ad51"
+    },
+    {
+      "command": "python3 scripts/test-verify-skin-polarity.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "83d01749468a63bc882214b7e497e70a5c4979632ae120edefa95155cdb98e62"
+    },
+    {
+      "command": "python3 scripts/test-export-wait.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "67685b7f00996b59ec8d237c877e439de78113e1421b8a5fa30f1874465c6267"
+    },
+    {
+      "command": "python3 scripts/test-verify-heatmap.py",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "773a3d70475dbfd9d860b4783c5c952ff7a3a1890c28ea407ab6fc2dea4ea62c"
+    },
+    {
+      "command": "python3 scripts/verify-heatmap.py --all",
+      "exit_codes": [
+        0
+      ],
+      "log_sha256": "fd597f57a1997903e644bcb94250e137773656054235dd9c82d5a024952e3375"
+    },
+    {
+      "command": "python3 scripts/build-icons.py && git diff --ignore-space-at-eol --exit-code -- skills/diagram-design/assets/icons.html skills/diagram-design/references/primitive-icons.md",
+      "exit_codes": [
+        0,
+        0
+      ],
+      "log_sha256": "195dc2a95de0e107b3ac29169da94e800e20efad71e65c2497ece46e34811f32"
+    }
+  ],
+  "runtime": "Python3.12.14;Pillow12.1.1;Playwright1.62.0;ChromeHeadlessShell151.0.7922.34/rev1234;Claude2.1.229strictvalidator",
+  "doctor_note": "exit0 with1WARN: --only-shell installation can launch Chromium151 butdoctor checksfullchromium.executable_path; no full browser presence claimed",
+  "render_note": "215 files rendered0findings1unmeasurable scrolling serviceblueprintnote;46selftestcasespass"
+}
