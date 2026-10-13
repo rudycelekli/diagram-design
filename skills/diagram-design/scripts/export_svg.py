@@ -580,32 +580,85 @@ def _css_blocks(css: str) -> Iterator[tuple[str, str]]:
         raise ValueError("diagram CSS has an unclosed rule or string")
 
 
-def _css_rule_group(selector: str, body: str) -> bool:
-    """Recognize block at-rules containing ordinary rules, not declarations."""
-    if not selector.startswith("@") or re.match(r"@(?:(?:-webkit-)?keyframes|font-face)\b", selector, re.IGNORECASE):
-        return False
-    if re.match(r"@(?:media|supports|layer|container)\b", selector, re.IGNORECASE):
-        return True
-    return any(not child.startswith("@") or _css_rule_group(child, contents)
-               for child, contents in _css_blocks(body))
+class _CssRule:
+    """Source spans plus one cached classification; nested bodies are not copied."""
+    def __init__(self, css: str, start: int, opening: int):
+        self.css = css
+        self.selector = css[start:opening].strip()
+        self.start = opening + 1
+        self.end = opening + 1
+        self.children: list[_CssRule] = []
+        self.group = False
 
 
-def _keyframe_names(blocks: list[str], root_id: str) -> dict[str, str]:
+def _css_rule_tree(css: str) -> list[_CssRule]:
+    """Scan braces once, then classify each block once in reverse order."""
+    roots: list[_CssRule] = []
+    stack: list[_CssRule] = []
+    nodes: list[_CssRule] = []
+    starts = [0]
+    quote = ""
+    escaped = False
+    for index, char in enumerate(css):
+        if escaped:
+            escaped = False
+            continue
+        if char == "\\":
+            escaped = True
+            continue
+        if quote:
+            if char == quote:
+                quote = ""
+            continue
+        if char in "\"'":
+            quote = char
+        elif char == "{":
+            if len(stack) >= 1024:
+                raise ValueError("diagram CSS nesting exceeds the supported limit of 1024 blocks")
+            rule = _CssRule(css, starts[-1], index)
+            (stack[-1].children if stack else roots).append(rule)
+            nodes.append(rule)
+            stack.append(rule)
+            starts.append(index + 1)
+        elif char == "}":
+            if stack:
+                stack.pop().end = index
+                starts.pop()
+            starts[-1] = index + 1
+        elif char == ";":
+            starts[-1] = index + 1
+    if stack or quote:
+        raise ValueError("diagram CSS has an unclosed rule or string")
+    for rule in reversed(nodes):
+        selector = rule.selector
+        if selector.startswith("@") and not re.match(r"@(?:(?:-webkit-)?keyframes|font-face)\b", selector, re.IGNORECASE):
+            rule.group = bool(re.match(r"@(?:media|supports|layer|container)\b", selector, re.IGNORECASE)) or any(
+                not child.selector.startswith("@") or child.group for child in rule.children
+            )
+    return roots
+
+
+def _css_rule_nodes(rules: list[_CssRule]) -> Iterator[_CssRule]:
+    pending = list(reversed(rules))
+    while pending:
+        rule = pending.pop()
+        yield rule
+        if rule.group:
+            pending.extend(reversed(rule.children))
+
+
+def _keyframe_names(rules: list[_CssRule], root_id: str) -> dict[str, str]:
     names: dict[str, str] = {}
-    for block in blocks:
-        for selector, body in _css_blocks(block):
-            if _css_rule_group(selector, body):
-                names.update(_keyframe_names([body], root_id))
-            keyframe = re.fullmatch(r"@(?:-webkit-)?keyframes\s+(.+)", selector, re.IGNORECASE)
-            if keyframe is None:
-
-                continue
-            name = keyframe.group(1).strip()
-            if name[:1] in ("\"", "'") and name[-1:] == name[:1]:
-                name = name[1:-1]
-            if not re.fullmatch(r"[A-Za-z_][\w-]*", name):
-                raise ValueError(f"unsupported CSS keyframe name in SVG export: {selector}")
-            names[name] = f"{root_id}-{name}"
+    for rule in _css_rule_nodes(rules):
+        keyframe = re.fullmatch(r"@(?:-webkit-)?keyframes\s+(.+)", rule.selector, re.IGNORECASE)
+        if keyframe is None:
+            continue
+        name = keyframe.group(1).strip()
+        if name[:1] in ("\"", "'") and name[-1:] == name[:1]:
+            name = name[1:-1]
+        if not re.fullmatch(r"[A-Za-z_][\w-]*", name):
+            raise ValueError(f"unsupported CSS keyframe name in SVG export: {rule.selector}")
+        names[name] = f"{root_id}-{name}"
     return names
 
 
@@ -728,53 +781,82 @@ def namespace_inline_animations(svg: str, names: dict[str, str]) -> str:
     return _rewrite_start_tags(svg, rewrite_tag)
 
 
-def _diagram_css_rules(block: str, root_id: str, names: dict[str, str], original_root_id: str = "", system_fonts: bool = False) -> str:
+def _diagram_css_leaf(rule: _CssRule, root_id: str, names: dict[str, str], original_root_id: str, system_fonts: bool) -> str:
     kept: list[str] = []
-    for selector, body in _css_blocks(block):
-        selector = selector.strip()
-        body = body.strip()
-        if not selector or not body:
-            continue
-        if _css_rule_group(selector, body):
-            inner = _diagram_css_rules(body, root_id, names, original_root_id, system_fonts)
-            if inner:
-                kept.append(f"{escape_css_for_xml(selector)} {{\n{inner}\n}}")
-            continue
-        if re.match(r"@(?:-webkit-)?keyframes\b", selector, re.IGNORECASE):
-            prefix, name = selector.rsplit(None, 1)
-            quote = name[:1] if name[:1] in ("\"", "'") else ""
-            original = name[1:-1] if quote else name
-            kept.append(escape_css_for_xml(f"{prefix} {quote}{names[original]}{quote} {{ {body} }}"))
-            continue
-        if re.match(r"@font-face\b", selector, re.IGNORECASE):
-            if not system_fonts:
-                kept.append(escape_css_for_xml(f"{selector} {{ {body} }}"))
-            continue
-        if selector.startswith("@"):
-            print(f"warning: dropping unsupported CSS block in SVG export: {selector}", file=sys.stderr)
-            continue
-        if original_root_id:
-            selector = retarget_root_selector(selector, original_root_id, root_id)
-        # A second space after a hex escape can be a descendant combinator.
-        selector = " ".join(selector.split())
-        body = _animation_declarations(body, names)
-        inherited = body_inherited_css(selector, body, root_id)
-        if inherited:
-            kept.append(escape_css_for_xml(inherited))
-        if is_chrome_selector(selector):
-            continue
-        kept.append(escape_css_for_xml(f"{scope_selector(selector, root_id)} {{ {body} }}"))
+    selector = rule.selector.strip()
+    body = rule.css[rule.start:rule.end].strip()
+    if not selector or not body:
+        return ""
+    if re.match(r"@(?:-webkit-)?keyframes\b", selector, re.IGNORECASE):
+        prefix, name = selector.rsplit(None, 1)
+        quote = name[:1] if name[:1] in ("\"", "'") else ""
+        original = name[1:-1] if quote else name
+        kept.append(escape_css_for_xml(f"{prefix} {quote}{names[original]}{quote} {{ {body} }}"))
+        return "\n      ".join(kept)
+    if re.match(r"@font-face\b", selector, re.IGNORECASE):
+        if not system_fonts:
+            kept.append(escape_css_for_xml(f"{selector} {{ {body} }}"))
+        return "\n      ".join(kept)
+    if selector.startswith("@"):
+        print(f"warning: dropping unsupported CSS block in SVG export: {selector}", file=sys.stderr)
+        return "\n      ".join(kept)
+    if original_root_id:
+        selector = retarget_root_selector(selector, original_root_id, root_id)
+    # A second space after a hex escape can be a descendant combinator.
+    selector = " ".join(selector.split())
+    body = _animation_declarations(body, names)
+    inherited = body_inherited_css(selector, body, root_id)
+    if inherited:
+        kept.append(escape_css_for_xml(inherited))
+    if is_chrome_selector(selector):
+        return "\n      ".join(kept)
+    kept.append(escape_css_for_xml(f"{scope_selector(selector, root_id)} {{ {body} }}"))
     return "\n      ".join(kept)
+
+
+def _diagram_css_rules(rules: list[_CssRule], root_id: str, names: dict[str, str], original_root_id: str = "", system_fonts: bool = False) -> str:
+    # Determine empty groups bottom-up, then emit without recursive string copies.
+    nodes = list(_css_rule_nodes(rules))
+    leaves = {rule: _diagram_css_leaf(rule, root_id, names, original_root_id, system_fonts)
+              for rule in nodes if not rule.group}
+    retained: dict[_CssRule, bool] = {}
+    for rule in reversed(nodes):
+        retained[rule] = any(retained[child] for child in rule.children) if rule.group else bool(leaves[rule])
+    output: list[str] = []
+
+    def siblings(items: list[_CssRule]) -> list[tuple[_CssRule, str]]:
+        kept = [rule for rule in items if retained[rule]]
+        return list(reversed([(rule, "" if index == 0 else "\n      ")
+                              for index, rule in enumerate(kept)]))
+
+    pending: list[tuple[_CssRule, str] | str] = siblings(rules)
+    while pending:
+        item = pending.pop()
+        if isinstance(item, str):
+            output.append(item)
+            continue
+        rule, separator = item
+        output.append(separator)
+        if rule.group:
+            output.append(escape_css_for_xml(rule.selector) + " {\n")
+            pending.append("\n}")
+            pending.extend(siblings(rule.children))
+        else:
+            output.append(leaves[rule])
+    return "".join(output)
+
+
+def _html_css_rules(html: str) -> list[_CssRule]:
+    rules: list[_CssRule] = []
+    for block in STYLE_BLOCK_RE.findall(mask_opaque_html(html)):
+        rules.extend(_css_rule_tree(CSS_COMMENT_RE.sub("", block)))
+    return rules
 
 
 def diagram_css_from_html(html: str, root_id: str, original_root_id: str = "", system_fonts: bool = False) -> str:
     """Carry scoped diagram CSS while retaining its existing media conditions."""
-    kept: list[str] = []
-    blocks = [CSS_COMMENT_RE.sub("", block) for block in STYLE_BLOCK_RE.findall(mask_opaque_html(html))]
-    names = _keyframe_names(blocks, root_id)
-    for block in blocks:
-        kept.append(_diagram_css_rules(block, root_id, names, original_root_id, system_fonts))
-    return "\n      ".join(kept)
+    rules = _html_css_rules(html)
+    return _diagram_css_rules(rules, root_id, _keyframe_names(rules, root_id), original_root_id, system_fonts)
 
 
 def leading_accessibility_end(svg: str, pos: int) -> int:
@@ -1161,8 +1243,9 @@ def export_svg_document(html: str, source_path: Path, system_fonts: bool = False
         "",
     )
     svg = set_root_id(svg, root_id)
-    diagram_css = diagram_css_from_html(html, root_id, original_root_id, system_fonts)
-    names = _keyframe_names([CSS_COMMENT_RE.sub("", block) for block in STYLE_BLOCK_RE.findall(mask_opaque_html(html))], root_id)
+    rules = _html_css_rules(html)
+    names = _keyframe_names(rules, root_id)
+    diagram_css = _diagram_css_rules(rules, root_id, names, original_root_id, system_fonts)
     svg = namespace_inline_animations(svg, names)
     svg = merge_style_into_defs(svg, diagram_css, system_fonts)
     svg = namespace_defs_ids(svg, slug)
@@ -1211,6 +1294,9 @@ def main(argv: list[str] | None = None) -> int:
     try:
         html = source.read_text(encoding="utf-8")
         document = export_svg_document(html, source, system_fonts=args.system_fonts)
+    except RecursionError:
+        print("error: diagram CSS nesting exceeds the supported export depth", file=sys.stderr)
+        return 2
     except (ValueError, OSError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2

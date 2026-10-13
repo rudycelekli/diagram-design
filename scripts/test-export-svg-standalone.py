@@ -1111,6 +1111,47 @@ class ExportSvgStandaloneTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     self.mod.export_svg_document(source.read_text(encoding="utf-8"), source)
 
+    def test_deep_css_nesting_cli_fails_cleanly_without_output(self) -> None:
+        css = "@media screen {" * 3000 + ".paint{fill:red}" + "}" * 3000
+        with tempfile.TemporaryDirectory() as folder:
+            source = Path(folder) / "deep.html"
+            output = Path(folder) / "deep.svg"
+            source.write_text('<style>' + css + '</style><svg viewBox="0 0 10 10"><rect class="paint" width="5" height="5"/></svg>', encoding="utf-8")
+            errors = io.StringIO()
+            with contextlib.redirect_stderr(errors), contextlib.redirect_stdout(io.StringIO()):
+                result = self.mod.main([str(source), str(output), "--system-fonts"])
+            self.assertEqual(result, 2)
+            self.assertIn("diagram CSS nesting", errors.getvalue())
+            self.assertNotIn("Traceback", errors.getvalue())
+            self.assertFalse(output.exists())
+
+    def test_unknown_css_group_nesting_scans_source_once(self) -> None:
+        for depth in (200, 400):
+            with self.subTest(depth=depth):
+                css = "@foo {" * depth + '.paint{fill:red;content:"{;}"}' + "}" * depth
+                html = '<style>' + css + '</style><svg viewBox="0 0 10 10"><rect class="paint" width="5" height="5"/></svg>'
+                with patch.object(self.mod, "_css_blocks", wraps=self.mod._css_blocks) as scans:
+                    rendered = self.mod.export_svg_document(html, Path("linear.html"), system_fonts=True)
+                self.assertLessEqual(sum(len(call.args[0]) for call in scans.call_args_list), len(css))
+                self.assertEqual(rendered.count("@foo"), depth)
+                self.assertIn('#linear-root .paint', rendered)
+                self.assertIn('content:"{;}"', rendered)
+                ET.fromstring(rendered)
+
+    def test_export_collects_keyframes_once_from_shared_css_tree(self) -> None:
+        css = '@media screen{@foo{@font-face{font-family:Demo;src:url("font.woff2")}@keyframes spin{from{opacity:0}to{opacity:1}}.paint{fill:red;animation:spin 1s}}}@unknown{font-family:Demo}'
+        html = '<style>' + css + '</style><svg viewBox="0 0 10 10"><rect class="paint" width="5" height="5"/></svg>'
+        errors = io.StringIO()
+        with patch.object(self.mod, "_keyframe_names", wraps=self.mod._keyframe_names) as names, contextlib.redirect_stderr(errors):
+            rendered = self.mod.export_svg_document(html, Path("shared.html"))
+        self.assertEqual(names.call_count, 1)
+        self.assertIn('@font-face', rendered)
+        self.assertIn('@keyframes shared-root-spin', rendered)
+        self.assertIn('animation:shared-root-spin 1s', rendered)
+        self.assertNotIn('@unknown', rendered)
+        self.assertIn('dropping unsupported CSS block', errors.getvalue())
+        ET.fromstring(rendered)
+
 
 if __name__ == "__main__":
     suite = unittest.defaultTestLoader.loadTestsFromTestCase(ExportSvgStandaloneTests)

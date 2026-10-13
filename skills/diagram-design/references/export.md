@@ -407,3 +407,5 @@ If the target aspect ratio doesn't match the `viewBox` aspect ratio, say so and 
 - Embeds an HTML wrapper (cards, headers) into the SVG via `foreignObject`. Too fragile across renderers.
 
 The exporter preserves `@font-face` and scopes ordinary rules within block at-rules such as `@supports`, `@media`, `@layer`, and `@container` without flattening their conditions. Declaration-only unsupported blocks are dropped with a warning rather than aborting the export. System-font mode continues to omit custom font-face declarations.
+
+CSS grouping rules are scanned once and preserved without recursively rescanning nested bodies. Exports deeper than 1,024 nested CSS blocks fail with a clear diagnostic (CLI exit 2) before writing output.
