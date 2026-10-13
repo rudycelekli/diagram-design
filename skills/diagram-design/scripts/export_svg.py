@@ -633,7 +633,9 @@ def _css_rule_tree(css: str) -> list[_CssRule]:
         selector = rule.selector
         if selector.startswith("@") and not re.match(r"@(?:(?:-webkit-)?keyframes|font-face)\b", selector, re.IGNORECASE):
             rule.group = bool(re.match(r"@(?:media|supports|layer|container)\b", selector, re.IGNORECASE)) or any(
-                not child.selector.startswith("@") or child.group for child in rule.children
+                not child.selector.startswith("@") or child.group
+                or re.match(r"@(?:(?:-webkit-)?keyframes|font-face)\b", child.selector, re.IGNORECASE) is not None
+                for child in rule.children
             )
     return roots
 
@@ -719,6 +721,10 @@ def _animation_component(value: str, names: dict[str, str], shorthand: bool) -> 
             function = not quote and re.match(r"\s*\(", value[match.end():]) is not None
             variable = variable or (function and name.lower() == "var")
             if function:
+                continue
+            # Unquoted none disables animation; CSS-wide values reset/inherit it.
+            # Quoted spellings are actual keyframe names and must be namespaced.
+            if not quote and name.lower() in {"none", "inherit", "initial", "unset", "revert", "revert-layer"}:
                 continue
             if name in names:
                 if shorthand and not quote and name.lower() in keywords:

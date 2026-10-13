@@ -626,6 +626,26 @@ class ExportSvgStandaloneTests(unittest.TestCase):
             result = ET.fromstring(self.mod.export_svg_document(html, Path("escaped.html")))
             self.assertEqual(result.find("{http://www.w3.org/2000/svg}rect").get(prop), "rgba(255,0,0,0.5)")
 
+    def test_reserved_animation_values_stay_disabled_or_reset(self) -> None:
+        for value in ("none", "inherit", "initial", "unset", "revert", "revert-layer"):
+            with self.subTest(value=value):
+                html = '<style>@keyframes "' + value + '" {to {opacity:1}}'
+                html += '.paint {animation-name:' + value + '; animation:' + value + ';}'
+                html += '</style><svg viewBox="0 0 40 40"><rect class="paint" style="animation-name:' + value + '"/></svg>'
+                result = self.mod.export_svg_document(html, Path("reserved.html"))
+                css = embedded_css(result)
+                self.assertIn('animation-name:' + value + ';', css)
+                self.assertIn('animation:' + value + ';', css)
+                self.assertIn('style="animation-name:' + value + '"', result)
+                self.assertIn('@keyframes "reserved-root-' + value + '"', css)
+                self.assertEqual(self.mod._animation_declarations('animation-name:' + value.upper(), {value.upper():'prefixed'}), 'animation-name:' + value.upper())
+                for quote in ('"', "'"):
+                    body = 'animation-name:' + quote + value + quote + ';animation:' + quote + value + quote + ' 1s'
+                    expected = 'animation-name:' + quote + 'reserved-' + value + quote + ';animation:' + quote + 'reserved-' + value + quote + ' 1s'
+                    self.assertEqual(self.mod._animation_declarations(body, {value:'reserved-' + value}), expected)
+        self.assertEqual(self.mod._animation_declarations('animation-name:linear', {'linear':'prefixed-linear'}), 'animation-name:prefixed-linear')
+        self.assertEqual(self.mod._animation_declarations('animation:none 1s linear', {'none':'prefixed-none'}), 'animation:none 1s linear')
+
     def test_keyframes_and_bindings_are_scoped_together(self) -> None:
         html = '<style>@keyframes pulse {from {fill:#ff0000} to {fill:#ff0000}}'
         html += '@-webkit-keyframes other {to {opacity:1}}'
@@ -1153,6 +1173,34 @@ class ExportSvgStandaloneTests(unittest.TestCase):
         self.assertNotIn('@unknown', rendered)
         self.assertIn('dropping unsupported CSS block', errors.getvalue())
         ET.fromstring(rendered)
+
+    def test_definition_only_css_groups_keep_fonts_and_keyframes(self) -> None:
+        keyframes = '@keyframes pulse{from{opacity:0}to{opacity:1}}'
+        font = '@font-face{font-family:Demo;src:url("demo.woff2")}'
+        for wrapper in ('@scope (svg)', '@future'):
+            for definition in (keyframes, font, '@nested {' + keyframes + font + '}'):
+                with self.subTest(wrapper=wrapper, definition=definition):
+                    css = wrapper + '{' + definition + '}.paint{fill:red;animation:pulse 1s;font-family:Demo}'
+                    html = '<style>' + css + '</style><svg viewBox="0 0 10 10"><rect class="paint" width="5" height="5"/></svg>'
+                    errors = io.StringIO()
+                    with contextlib.redirect_stderr(errors):
+                        rendered = self.mod.export_svg_document(html, Path("definitions.html"))
+                    self.assertIn(wrapper, rendered)
+                    self.assertEqual(errors.getvalue(), "")
+                    if keyframes in definition:
+                        self.assertIn('@keyframes definitions-root-pulse', rendered)
+                        self.assertIn('animation:definitions-root-pulse 1s', rendered)
+                    if font in definition:
+                        self.assertIn('@font-face', rendered)
+                        system_fonts = self.mod.export_svg_document(html, Path("definitions.html"), system_fonts=True)
+                        self.assertNotIn('@font-face', system_fonts)
+                    ET.fromstring(rendered)
+        html = '<style>@future{font-family:Demo}.paint{fill:red}</style><svg viewBox="0 0 10 10"><rect class="paint" width="5" height="5"/></svg>'
+        errors = io.StringIO()
+        with contextlib.redirect_stderr(errors):
+            rendered = self.mod.export_svg_document(html, Path("declarations.html"))
+        self.assertNotIn('@future', rendered)
+        self.assertIn('dropping unsupported CSS block', errors.getvalue())
 
 
 if __name__ == "__main__":
