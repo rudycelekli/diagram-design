@@ -1,7 +1,7 @@
-name: Portable nesting full qualification
+name: Conditional SVG full qualification
 on:
   push:
-    branches: [qualification/excalidraw-portable-test]
+    branches: [qualification/conditional-svg-repair]
 permissions:
   contents: read
 jobs:
@@ -16,7 +16,7 @@ jobs:
           persist-credentials: false
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
-          ref: 50c0abf52555c07a7abbe3e95838163280abbbac
+          ref: d39cce64136572433762c71be618fa5c34558ad0
           path: candidate
           fetch-depth: 0
           persist-credentials: false
@@ -40,7 +40,7 @@ jobs:
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
-          name: portable-nesting-full-proof
+          name: conditional-svg-full-proof
           path: proof
           retention-days: 1
           compression-level: 9
