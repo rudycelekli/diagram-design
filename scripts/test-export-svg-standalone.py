@@ -1130,9 +1130,11 @@ class ExportSvgStandaloneTests(unittest.TestCase):
             with self.subTest(depth=depth):
                 css = "@foo {" * depth + '.paint{fill:red;content:"{;}"}' + "}" * depth
                 html = '<style>' + css + '</style><svg viewBox="0 0 10 10"><rect class="paint" width="5" height="5"/></svg>'
-                with patch.object(self.mod, "_css_blocks", wraps=self.mod._css_blocks) as scans:
+                with patch.object(self.mod, "_css_rule_tree", wraps=self.mod._css_rule_tree) as scans, patch.object(self.mod, "_CssRule", wraps=self.mod._CssRule) as nodes:
                     rendered = self.mod.export_svg_document(html, Path("linear.html"), system_fonts=True)
-                self.assertLessEqual(sum(len(call.args[0]) for call in scans.call_args_list), len(css))
+                self.assertEqual(scans.call_count, 1)
+                self.assertEqual(sum(len(call.args[0]) for call in scans.call_args_list), len(css))
+                self.assertEqual(nodes.call_count, depth + 1)
                 self.assertEqual(rendered.count("@foo"), depth)
                 self.assertIn('#linear-root .paint', rendered)
                 self.assertIn('content:"{;}"', rendered)
