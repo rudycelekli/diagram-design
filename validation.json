@@ -1,0 +1,17 @@
+{
+  "candidate_head": "993378a372c9273f5f21b7324ec1f131673e8438",
+  "candidate_base": "11b08eade8049c441ed3df1895e3b527c26c0fbe",
+  "browser": "Chromium151.0.7922.34",
+  "fixture": "Synthetic SVG local gradient reference url(#\\70 aint); no accounts or customer data",
+  "measured_browser_base": "178d21b1d47fcc0731fcb7bdd912c27d4dbca6cf",
+  "current_source_binding": "Fresh production-helper execution on currentmain produces byte-identical baseline/head SVGs for all60 archived inputs",
+  "actual_browser_measurements": {
+    "center_pixels": 90,
+    "literal_metadata_comparisons": 26
+  },
+  "validation": "All83 current-policy commands passed at candidatehead; actual existing Doctor WARN/TargetClosedError cause unqualified, gallery215 renders0findings1unmeasurable scrolling note, npmallowScriptsadvisory preserved",
+  "images": {
+    "before.png": "a2e7f9efe605406c3a696bf22b6bf473498e742738510616e1347229fbeea209",
+    "after.png": "4b540c466c5ced6927e7488524e733315f2fcb3343e617ea1b78c9b20e76e22e"
+  }
+}
