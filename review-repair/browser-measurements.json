@@ -1,0 +1,1422 @@
+{
+  "status": "PASS",
+  "browser_version": "151.0.7922.34",
+  "results": [
+    {
+      "case": "set-plain",
+      "version": "original",
+      "measurement": {
+        "style": null,
+        "label": "url(#paint)",
+        "fontFamily": "Times",
+        "quoted": "",
+        "bounds": {
+          "x": 10,
+          "y": 10,
+          "width": 200,
+          "height": 100
+        },
+        "center_rgb": [
+          0,
+          255,
+          0
+        ],
+        "screenshot_sha256": "c37695d6b0342fc98b41e1c0448efc474b2f1f6ac2bddc8fcbbdd31ce962af94",
+        "direct_binding_rgb": [
+          191,
+          69,
+          32
+        ],
+        "solid_smil_fill": "rgb(255, 0, 0)"
+      }
+    },
+    {
+      "case": "set-plain",
+      "version": "baseline",
+      "measurement": {
+        "style": null,
+        "label": "url(#paint)",
+        "fontFamily": "Times",
+        "quoted": "",
+        "bounds": {
+          "x": 10,
+          "y": 10,
+          "width": 200,
+          "height": 100
+        },
+        "center_rgb": [
+          0,
+          255,
+          0
+        ],
+        "screenshot_sha256": "c37695d6b0342fc98b41e1c0448efc474b2f1f6ac2bddc8fcbbdd31ce962af94",
+        "direct_binding_rgb": [
+          255,
+          255,
+          255
+        ],
+        "solid_smil_fill": "rgb(255, 0, 0)"
+      }
+    },
+    {
+      "case": "set-plain",
+      "version": "head",
+      "measurement": {
+        "style": null,
+        "label": "url(#paint)",
+        "fontFamily": "Times",
+        "quoted": "",
+        "bounds": {
+          "x": 10,
+          "y": 10,
+          "width": 200,
+          "height": 100
+        },
+        "center_rgb": [
+          0,
+          255,
+          0
+        ],
+        "screenshot_sha256": "c37695d6b0342fc98b41e1c0448efc474b2f1f6ac2bddc8fcbbdd31ce962af94",
+        "direct_binding_rgb": [
+          191,
+          69,
+          32
+        ],
+        "solid_smil_fill": "rgb(255, 0, 0)"
+      }
+    },
+    {
+      "case": "set-escaped",
+      "version": "original",
+      "measurement": {
+        "style": null,
+        "label": "url(#paint)",
+        "fontFamily": "Times",
+        "quoted": "",
+        "bounds": {
+          "x": 10,
+          "y": 10,
+          "width": 200,
+          "height": 100
+        },
+        "center_rgb": [
+          0,
+          255,
+          0
+        ],
+        "screenshot_sha256": "c37695d6b0342fc98b41e1c0448efc474b2f1f6ac2bddc8fcbbdd31ce962af94",
+        "direct_binding_rgb": [
+          191,
+          69,
+          32
+        ]
+      }
+    },
+    {
+      "case": "set-escaped",
+      "version": "baseline",
+      "measurement": {
+        "style": null,
+        "label": "url(#paint)",
+        "fontFamily": "Times",
+        "quoted": "",
+        "bounds": {
+          "x": 10,
+          "y": 10,
+          "width": 200,
+          "height": 100
+        },
+        "center_rgb": [
+          0,
+          255,
+          0
+        ],
+        "screenshot_sha256": "c37695d6b0342fc98b41e1c0448efc474b2f1f6ac2bddc8fcbbdd31ce962af94",
+        "direct_binding_rgb": [
+          255,
+          255,
+          255
+        ]
+      }
+    },
+    {
+      "case": "set-escaped",
+      "version": "head",
+      "measurement": {
+        "style": null,
+        "label": "url(#paint)",
+        "fontFamily": "Times",
+        "quoted": "",
+        "bounds": {
+          "x": 10,
+          "y": 10,
+          "width": 200,
+          "height": 100
+        },
+        "center_rgb": [
+          0,
+          255,
+          0
+        ],
+        "screenshot_sha256": "c37695d6b0342fc98b41e1c0448efc474b2f1f6ac2bddc8fcbbdd31ce962af94",
+        "direct_binding_rgb": [
+          191,
+          69,
+          32
+        ]
+      }
+    },
+    {
+      "case": "animate-values",
+      "version": "original",
+      "measurement": {
+        "style": null,
+        "label": "url(#paint)",
+        "fontFamily": "Times",
+        "quoted": "",
+        "bounds": {
+          "x": 10,
+          "y": 10,
+          "width": 200,
+          "height": 100
+        },
+        "center_rgb": [
+          0,
+          255,
+          0
+        ],
+        "screenshot_sha256": "c37695d6b0342fc98b41e1c0448efc474b2f1f6ac2bddc8fcbbdd31ce962af94",
+        "direct_binding_rgb": [
+          191,
+          69,
+          32
+        ]
+      }
+    },
+    {
+      "case": "animate-values",
+      "version": "baseline",
+      "measurement": {
+        "style": null,
+        "label": "url(#paint)",
+        "fontFamily": "Times",
+        "quoted": "",
+        "bounds": {
+          "x": 10,
+          "y": 10,
+          "width": 200,
+          "height": 100
+        },
+        "center_rgb": [
+          0,
+          255,
+          0
+        ],
+        "screenshot_sha256": "c37695d6b0342fc98b41e1c0448efc474b2f1f6ac2bddc8fcbbdd31ce962af94",
+        "direct_binding_rgb": [
+          255,
+          255,
+          255
+        ]
+      }
+    },
+    {
+      "case": "animate-values",
+      "version": "head",
+      "measurement": {
+        "style": null,
+        "label": "url(#paint)",
+        "fontFamily": "Times",
+        "quoted": "",
+        "bounds": {
+          "x": 10,
+          "y": 10,
+          "width": 200,
+          "height": 100
+        },
+        "center_rgb": [
+          0,
+          255,
+          0
+        ],
+        "screenshot_sha256": "c37695d6b0342fc98b41e1c0448efc474b2f1f6ac2bddc8fcbbdd31ce962af94",
+        "direct_binding_rgb": [
+          191,
+          69,
+          32
+        ]
+      }
+    },
+    {
+      "case": "metadata-control",
+      "version": "original",
+      "measurement": {
+        "style": null,
+        "label": "url(#paint)",
+        "fontFamily": "Times",
+        "quoted": "",
+        "bounds": {
+          "x": 10,
+          "y": 10,
+          "width": 200,
+          "height": 100
+        },
+        "center_rgb": [
+          191,
+          69,
+          32
+        ],
+        "screenshot_sha256": "b8f1b7aa68ec0d36b32a4fb162afc3afd0f151fe518fd25d878775781f10797f"
+      }
+    },
+    {
+      "case": "metadata-control",
+      "version": "baseline",
+      "measurement": {
+        "style": null,
+        "label": "url(#paint)",
+        "fontFamily": "Times",
+        "quoted": "",
+        "bounds": {
+          "x": 10,
+          "y": 10,
+          "width": 200,
+          "height": 100
+        },
+        "center_rgb": [
+          191,
+          69,
+          32
+        ],
+        "screenshot_sha256": "b8f1b7aa68ec0d36b32a4fb162afc3afd0f151fe518fd25d878775781f10797f"
+      }
+    },
+    {
+      "case": "metadata-control",
+      "version": "head",
+      "measurement": {
+        "style": null,
+        "label": "url(#paint)",
+        "fontFamily": "Times",
+        "quoted": "",
+        "bounds": {
+          "x": 10,
+          "y": 10,
+          "width": 200,
+          "height": 100
+        },
+        "center_rgb": [
+          191,
+          69,
+          32
+        ],
+        "screenshot_sha256": "b8f1b7aa68ec0d36b32a4fb162afc3afd0f151fe518fd25d878775781f10797f"
+      }
+    },
+    {
+      "case": "numeric-tab-unchanged",
+      "version": "original",
+      "measurement": {
+        "style": "font-family:'Cour\\\tier New',serif;--quoted:'a\tb'",
+        "label": null,
+        "fontFamily": "\"Cour\\9 ier New\", serif",
+        "quoted": "'a\tb'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "numeric-tab-unchanged",
+      "version": "baseline",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b'",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "numeric-tab-unchanged",
+      "version": "head",
+      "measurement": {
+        "style": "font-family:'Cour\\\tier New',serif;--quoted:'a\tb'",
+        "label": null,
+        "fontFamily": "\"Cour\\9 ier New\", serif",
+        "quoted": "'a\tb'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "numeric-tab-changed-url",
+      "version": "original",
+      "measurement": {
+        "style": "font-family:'Cour\\\tier New',serif;--quoted:'a\tb';fill:url(#paint)",
+        "label": null,
+        "fontFamily": "\"Cour\\9 ier New\", serif",
+        "quoted": "'a\tb'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "numeric-tab-changed-url",
+      "version": "baseline",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b';fill:url(#numeric-tab-changed-url-paint)",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "numeric-tab-changed-url",
+      "version": "head",
+      "measurement": {
+        "style": "font-family:'Cour\\\tier New',serif;--quoted:'a\tb';fill:url(#numeric-tab-changed-url-paint)",
+        "label": null,
+        "fontFamily": "\"Cour\\9 ier New\", serif",
+        "quoted": "'a\tb'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "numeric-lf-unchanged",
+      "version": "original",
+      "measurement": {
+        "style": "font-family:'Cour\\\nier New',serif;--quoted:'a\nb'",
+        "label": null,
+        "fontFamily": "\"Courier New\", serif",
+        "quoted": "",
+        "bounds": {
+          "x": 10,
+          "y": 39,
+          "width": 180.03125,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "numeric-lf-unchanged",
+      "version": "baseline",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b'",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "numeric-lf-unchanged",
+      "version": "head",
+      "measurement": {
+        "style": "font-family:'Cour\\\nier New',serif;--quoted:'a\nb'",
+        "label": null,
+        "fontFamily": "\"Courier New\", serif",
+        "quoted": "",
+        "bounds": {
+          "x": 10,
+          "y": 39,
+          "width": 180.03125,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "numeric-lf-changed-url",
+      "version": "original",
+      "measurement": {
+        "style": "font-family:'Cour\\\nier New',serif;--quoted:'a\nb';fill:url(#paint)",
+        "label": null,
+        "fontFamily": "\"Courier New\", serif",
+        "quoted": "",
+        "bounds": {
+          "x": 10,
+          "y": 39,
+          "width": 180.03125,
+          "height": 29
+        },
+        "center_rgb": [
+          255,
+          255,
+          255
+        ],
+        "screenshot_sha256": "c17ecd038a34f577353ab9be0b436911805b769e2acf13e9688f5aad542c8e8d"
+      }
+    },
+    {
+      "case": "numeric-lf-changed-url",
+      "version": "baseline",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b';fill:url(#numeric-lf-changed-url-paint)",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        },
+        "center_rgb": [
+          255,
+          255,
+          255
+        ],
+        "screenshot_sha256": "b1e4895dae4f3d5b6e414517f5d8293d347b3f7665f884c1e8f9286e76316dff"
+      }
+    },
+    {
+      "case": "numeric-lf-changed-url",
+      "version": "head",
+      "measurement": {
+        "style": "font-family:'Cour\\\nier New',serif;--quoted:'a\nb';fill:url(#numeric-lf-changed-url-paint)",
+        "label": null,
+        "fontFamily": "\"Courier New\", serif",
+        "quoted": "",
+        "bounds": {
+          "x": 10,
+          "y": 39,
+          "width": 180.03125,
+          "height": 29
+        },
+        "center_rgb": [
+          255,
+          255,
+          255
+        ],
+        "screenshot_sha256": "c17ecd038a34f577353ab9be0b436911805b769e2acf13e9688f5aad542c8e8d"
+      }
+    },
+    {
+      "case": "numeric-cr-unchanged",
+      "version": "original",
+      "measurement": {
+        "style": "font-family:'Cour\\\rier New',serif;--quoted:'a\rb'",
+        "label": null,
+        "fontFamily": "\"Courier New\", serif",
+        "quoted": "",
+        "bounds": {
+          "x": 10,
+          "y": 39,
+          "width": 180.03125,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "numeric-cr-unchanged",
+      "version": "baseline",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b'",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "numeric-cr-unchanged",
+      "version": "head",
+      "measurement": {
+        "style": "font-family:'Cour\\\rier New',serif;--quoted:'a\rb'",
+        "label": null,
+        "fontFamily": "\"Courier New\", serif",
+        "quoted": "",
+        "bounds": {
+          "x": 10,
+          "y": 39,
+          "width": 180.03125,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "numeric-cr-changed-url",
+      "version": "original",
+      "measurement": {
+        "style": "font-family:'Cour\\\rier New',serif;--quoted:'a\rb';fill:url(#paint)",
+        "label": null,
+        "fontFamily": "\"Courier New\", serif",
+        "quoted": "",
+        "bounds": {
+          "x": 10,
+          "y": 39,
+          "width": 180.03125,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "numeric-cr-changed-url",
+      "version": "baseline",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b';fill:url(#numeric-cr-changed-url-paint)",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "numeric-cr-changed-url",
+      "version": "head",
+      "measurement": {
+        "style": "font-family:'Cour\\\rier New',serif;--quoted:'a\rb';fill:url(#numeric-cr-changed-url-paint)",
+        "label": null,
+        "fontFamily": "\"Courier New\", serif",
+        "quoted": "",
+        "bounds": {
+          "x": 10,
+          "y": 39,
+          "width": 180.03125,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "hex-tab-unchanged",
+      "version": "original",
+      "measurement": {
+        "style": "font-family:'Cour\\\tier New',serif;--quoted:'a\tb'",
+        "label": null,
+        "fontFamily": "\"Cour\\9 ier New\", serif",
+        "quoted": "'a\tb'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "hex-tab-unchanged",
+      "version": "baseline",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b'",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "hex-tab-unchanged",
+      "version": "head",
+      "measurement": {
+        "style": "font-family:'Cour\\\tier New',serif;--quoted:'a\tb'",
+        "label": null,
+        "fontFamily": "\"Cour\\9 ier New\", serif",
+        "quoted": "'a\tb'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "hex-tab-changed-url",
+      "version": "original",
+      "measurement": {
+        "style": "font-family:'Cour\\\tier New',serif;--quoted:'a\tb';fill:url(#paint)",
+        "label": null,
+        "fontFamily": "\"Cour\\9 ier New\", serif",
+        "quoted": "'a\tb'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "hex-tab-changed-url",
+      "version": "baseline",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b';fill:url(#hex-tab-changed-url-paint)",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "hex-tab-changed-url",
+      "version": "head",
+      "measurement": {
+        "style": "font-family:'Cour\\\tier New',serif;--quoted:'a\tb';fill:url(#hex-tab-changed-url-paint)",
+        "label": null,
+        "fontFamily": "\"Cour\\9 ier New\", serif",
+        "quoted": "'a\tb'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "hex-lf-unchanged",
+      "version": "original",
+      "measurement": {
+        "style": "font-family:'Cour\\\nier New',serif;--quoted:'a\nb'",
+        "label": null,
+        "fontFamily": "\"Courier New\", serif",
+        "quoted": "",
+        "bounds": {
+          "x": 10,
+          "y": 39,
+          "width": 180.03125,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "hex-lf-unchanged",
+      "version": "baseline",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b'",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "hex-lf-unchanged",
+      "version": "head",
+      "measurement": {
+        "style": "font-family:'Cour\\\nier New',serif;--quoted:'a\nb'",
+        "label": null,
+        "fontFamily": "\"Courier New\", serif",
+        "quoted": "",
+        "bounds": {
+          "x": 10,
+          "y": 39,
+          "width": 180.03125,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "hex-lf-changed-url",
+      "version": "original",
+      "measurement": {
+        "style": "font-family:'Cour\\\nier New',serif;--quoted:'a\nb';fill:url(#paint)",
+        "label": null,
+        "fontFamily": "\"Courier New\", serif",
+        "quoted": "",
+        "bounds": {
+          "x": 10,
+          "y": 39,
+          "width": 180.03125,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "hex-lf-changed-url",
+      "version": "baseline",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b';fill:url(#hex-lf-changed-url-paint)",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "hex-lf-changed-url",
+      "version": "head",
+      "measurement": {
+        "style": "font-family:'Cour\\\nier New',serif;--quoted:'a\nb';fill:url(#hex-lf-changed-url-paint)",
+        "label": null,
+        "fontFamily": "\"Courier New\", serif",
+        "quoted": "",
+        "bounds": {
+          "x": 10,
+          "y": 39,
+          "width": 180.03125,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "hex-cr-unchanged",
+      "version": "original",
+      "measurement": {
+        "style": "font-family:'Cour\\\rier New',serif;--quoted:'a\rb'",
+        "label": null,
+        "fontFamily": "\"Courier New\", serif",
+        "quoted": "",
+        "bounds": {
+          "x": 10,
+          "y": 39,
+          "width": 180.03125,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "hex-cr-unchanged",
+      "version": "baseline",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b'",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "hex-cr-unchanged",
+      "version": "head",
+      "measurement": {
+        "style": "font-family:'Cour\\\rier New',serif;--quoted:'a\rb'",
+        "label": null,
+        "fontFamily": "\"Courier New\", serif",
+        "quoted": "",
+        "bounds": {
+          "x": 10,
+          "y": 39,
+          "width": 180.03125,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "hex-cr-changed-url",
+      "version": "original",
+      "measurement": {
+        "style": "font-family:'Cour\\\rier New',serif;--quoted:'a\rb';fill:url(#paint)",
+        "label": null,
+        "fontFamily": "\"Courier New\", serif",
+        "quoted": "",
+        "bounds": {
+          "x": 10,
+          "y": 39,
+          "width": 180.03125,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "hex-cr-changed-url",
+      "version": "baseline",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b';fill:url(#hex-cr-changed-url-paint)",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "hex-cr-changed-url",
+      "version": "head",
+      "measurement": {
+        "style": "font-family:'Cour\\\rier New',serif;--quoted:'a\rb';fill:url(#hex-cr-changed-url-paint)",
+        "label": null,
+        "fontFamily": "\"Courier New\", serif",
+        "quoted": "",
+        "bounds": {
+          "x": 10,
+          "y": 39,
+          "width": 180.03125,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "literal-tab-unchanged",
+      "version": "original",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b'",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "literal-tab-unchanged",
+      "version": "baseline",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b'",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "literal-tab-unchanged",
+      "version": "head",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b'",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "literal-tab-changed-url",
+      "version": "original",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b';fill:url(#paint)",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "literal-tab-changed-url",
+      "version": "baseline",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b';fill:url(#literal-tab-changed-url-paint)",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "literal-tab-changed-url",
+      "version": "head",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b';fill:url(#literal-tab-changed-url-paint)",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "literal-lf-unchanged",
+      "version": "original",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b'",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "literal-lf-unchanged",
+      "version": "baseline",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b'",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "literal-lf-unchanged",
+      "version": "head",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b'",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "literal-lf-changed-url",
+      "version": "original",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b';fill:url(#paint)",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "literal-lf-changed-url",
+      "version": "baseline",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b';fill:url(#literal-lf-changed-url-paint)",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "literal-lf-changed-url",
+      "version": "head",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b';fill:url(#literal-lf-changed-url-paint)",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "literal-cr-unchanged",
+      "version": "original",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b'",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "literal-cr-unchanged",
+      "version": "baseline",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b'",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "literal-cr-unchanged",
+      "version": "head",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b'",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "literal-cr-changed-url",
+      "version": "original",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b';fill:url(#paint)",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "literal-cr-changed-url",
+      "version": "baseline",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b';fill:url(#literal-cr-changed-url-paint)",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "literal-cr-changed-url",
+      "version": "head",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b';fill:url(#literal-cr-changed-url-paint)",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "literal-crlf-unchanged",
+      "version": "original",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b'",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "literal-crlf-unchanged",
+      "version": "baseline",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b'",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "literal-crlf-unchanged",
+      "version": "head",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b'",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "literal-crlf-changed-url",
+      "version": "original",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b';fill:url(#paint)",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "literal-crlf-changed-url",
+      "version": "baseline",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b';fill:url(#literal-crlf-changed-url-paint)",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "literal-crlf-changed-url",
+      "version": "head",
+      "measurement": {
+        "style": "font-family:'Cour\\ ier New',serif;--quoted:'a b';fill:url(#literal-crlf-changed-url-paint)",
+        "label": null,
+        "fontFamily": "\"Cour ier New\", serif",
+        "quoted": "'a b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "amp-reference-unchanged",
+      "version": "original",
+      "measurement": {
+        "style": "font-family:'Cour\\&#10;ier New',serif;--quoted:'a&#10;b'",
+        "label": null,
+        "fontFamily": "\"Cour&#10;ier New\", serif",
+        "quoted": "'a&#10;b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "amp-reference-unchanged",
+      "version": "baseline",
+      "measurement": {
+        "style": "font-family:'Cour\\&#10;ier New',serif;--quoted:'a&#10;b'",
+        "label": null,
+        "fontFamily": "\"Cour&#10;ier New\", serif",
+        "quoted": "'a&#10;b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "amp-reference-unchanged",
+      "version": "head",
+      "measurement": {
+        "style": "font-family:'Cour\\&#10;ier New',serif;--quoted:'a&#10;b'",
+        "label": null,
+        "fontFamily": "\"Cour&#10;ier New\", serif",
+        "quoted": "'a&#10;b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "amp-reference-changed-url",
+      "version": "original",
+      "measurement": {
+        "style": "font-family:'Cour\\&#10;ier New',serif;--quoted:'a&#10;b';fill:url(#paint)",
+        "label": null,
+        "fontFamily": "\"Cour&#10;ier New\", serif",
+        "quoted": "'a&#10;b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "amp-reference-changed-url",
+      "version": "baseline",
+      "measurement": {
+        "style": "font-family:'Cour\\&#10;ier New',serif;--quoted:'a&#10;b';fill:url(#amp-reference-changed-url-paint)",
+        "label": null,
+        "fontFamily": "\"Cour&#10;ier New\", serif",
+        "quoted": "'a&#10;b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    },
+    {
+      "case": "amp-reference-changed-url",
+      "version": "head",
+      "measurement": {
+        "style": "font-family:'Cour\\&#10;ier New',serif;--quoted:'a&#10;b';fill:url(#amp-reference-changed-url-paint)",
+        "label": null,
+        "fontFamily": "\"Cour&#10;ier New\", serif",
+        "quoted": "'a&#10;b'",
+        "bounds": {
+          "x": 10,
+          "y": 37,
+          "width": 141.4375,
+          "height": 29
+        }
+      }
+    }
+  ],
+  "page_errors": [],
+  "external_requests": [],
+  "elapsed": 5.849012750000838,
+  "limits": "Chromium151 ignored URL-valued SMIL even in original; solid red SMIL positive control passed. Direct CSS URI-binding pixels are a separate intervention, not animation rendering. Font metrics cover only this installed runtime and synthetic text; no universal font installation claim.",
+  "measured_source_head": "ad47b5c5ba5fc4e946e899020557b204425af889",
+  "published_baseline_head": "993378a372c9273f5f21b7324ec1f131673e8438",
+  "helper_sha256": "6a4f82b656b119496daaf9d8a662c190e7ef1c150d6455d93e7e42b5898cd76d",
+  "correction_patch_sha256": "251b4d0e5ad6b2cc152d0caf3cfd372236deeb80359449d559433e7eeaf8070a",
+  "full_current_policy": {
+    "status": "All83passed on exactad47b5c source, root eachcommand/source/log/runtimeverified",
+    "base": "11b08eade8049c441ed3df1895e3b527c26c0fbe",
+    "source_files": 680,
+    "receipt_sha256": "e27f1ad0505607aa65fb8fe2ca2f2de41ee3fbbf41a7b2430596a26c540718a6",
+    "root_packet_sha256": "9c027ebb8d36b14df4c5e1b0b61a135cdd835bf2231b2a969629ab32dcad977a"
+  },
+  "sources": "Synthetic standalone SVG fixtures without customer/account data",
+  "asset_sha256": {
+    "font-original.png": "c17ecd038a34f577353ab9be0b436911805b769e2acf13e9688f5aad542c8e8d",
+    "font-baseline.png": "b1e4895dae4f3d5b6e414517f5d8293d347b3f7665f884c1e8f9286e76316dff",
+    "font-head.png": "c17ecd038a34f577353ab9be0b436911805b769e2acf13e9688f5aad542c8e8d",
+    "set-plain-original-direct-binding.png": "b8f1b7aa68ec0d36b32a4fb162afc3afd0f151fe518fd25d878775781f10797f",
+    "set-plain-baseline-direct-binding.png": "4124c7cafd8253a8ca73b045681cafe92802938ae73b7e46259819d96e5b6c18",
+    "set-plain-head-direct-binding.png": "b8f1b7aa68ec0d36b32a4fb162afc3afd0f151fe518fd25d878775781f10797f",
+    "set-escaped-original-direct-binding.png": "b8f1b7aa68ec0d36b32a4fb162afc3afd0f151fe518fd25d878775781f10797f",
+    "set-escaped-baseline-direct-binding.png": "4124c7cafd8253a8ca73b045681cafe92802938ae73b7e46259819d96e5b6c18",
+    "set-escaped-head-direct-binding.png": "b8f1b7aa68ec0d36b32a4fb162afc3afd0f151fe518fd25d878775781f10797f",
+    "animate-values-original-direct-binding.png": "b8f1b7aa68ec0d36b32a4fb162afc3afd0f151fe518fd25d878775781f10797f",
+    "animate-values-baseline-direct-binding.png": "4124c7cafd8253a8ca73b045681cafe92802938ae73b7e46259819d96e5b6c18",
+    "animate-values-head-direct-binding.png": "b8f1b7aa68ec0d36b32a4fb162afc3afd0f151fe518fd25d878775781f10797f"
+  }
+}
