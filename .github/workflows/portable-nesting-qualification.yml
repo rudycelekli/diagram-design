@@ -1,7 +1,7 @@
-name: Conditional SVG full qualification
+name: Markdown fence full qualification
 on:
   push:
-    branches: [qualification/conditional-svg-repair]
+    branches: [qualification/markdown-outer-fence]
 permissions:
   contents: read
 jobs:
@@ -16,7 +16,7 @@ jobs:
           persist-credentials: false
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
-          ref: 2eb8c1028aaffe2a2157cd41c06f6691248ac84d
+          ref: b1803d1879c9036b7372345c4021675aa180394e
           path: candidate
           fetch-depth: 0
           persist-credentials: false
@@ -40,7 +40,7 @@ jobs:
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
         with:
-          name: conditional-svg-full-proof
+          name: markdown-outer-fence-full-proof
           path: proof
           retention-days: 1
           compression-level: 9
