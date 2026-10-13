@@ -16,7 +16,7 @@ jobs:
           persist-credentials: false
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
-          ref: c67e501c7e5471acc867ca82104dfa84b0e58df6
+          ref: 65fdb47daf4ea612d8c5830c0448410e902d1919
           path: candidate
           fetch-depth: 0
           persist-credentials: false
@@ -32,9 +32,9 @@ jobs:
           python -m playwright install --with-deps chromium
       - name: Bind package version comparison to upstream base
         run: |
-          git -C candidate fetch https://github.com/cathrynlavery/diagram-design.git 4335a99835f568bbc7eb45ff3a38abbf04eaab18
+          git -C candidate fetch https://github.com/cathrynlavery/diagram-design.git ec8a36e8771bb8a0eb35757a2c1003f3e6fb135f
           git -C candidate update-ref refs/remotes/origin/main FETCH_HEAD
-          test "$(git -C candidate rev-parse origin/main)" = 4335a99835f568bbc7eb45ff3a38abbf04eaab18
+          test "$(git -C candidate rev-parse origin/main)" = ec8a36e8771bb8a0eb35757a2c1003f3e6fb135f
       - name: Run every mandatory gate on immutable candidate
         run: python harness/qualification-runner.py
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
