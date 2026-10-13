@@ -1,6 +1,6 @@
 import hashlib,json,pathlib,subprocess,time,sys
 root=pathlib.Path('candidate'); out=pathlib.Path('proof'); out.mkdir(exist_ok=True)
-expected='2eb8c1028aaffe2a2157cd41c06f6691248ac84d'
+expected='92ab56beda9c1c56799cfcb7235360b5df2728db'
 assert subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip()==expected
 commands=json.loads(pathlib.Path('harness/qualification-commands.json').read_text()); assert len(commands)==81
 assert hashlib.sha256(pathlib.Path('harness/qualification-commands.json').read_bytes()).hexdigest() == '194a76f5a74de904108084c7ed7c02e93ac3f5f9f530545e8f34d2ef8d47f07f'
@@ -12,7 +12,7 @@ from playwright.sync_api import sync_playwright
 with sync_playwright() as pw:
  browser=pw.chromium.launch(); chromium=browser.version; browser.close()
 versions={"uname":subprocess.check_output(['uname','-a'],text=True).strip(),"python":sys.version,"node":subprocess.check_output(['node','--version'],text=True).strip(),"npm":subprocess.check_output(['npm','--version'],text=True).strip(),"playwright":metadata.version('playwright'),"chromium":chromium,"pillow":metadata.version('Pillow'),"claude":subprocess.check_output(['npx','--yes','@anthropic-ai/claude-code@2.1.229','--version'],text=True).strip()}
-receipt={"status":"RUNNING","candidate":expected,"upstream_base":"ec8a36e8771bb8a0eb35757a2c1003f3e6fb135f","versions":versions}
+receipt={"status":"RUNNING","candidate":expected,"upstream_base":"41765070ace63009f23c741cedb0c81429710b4f","versions":versions}
 (out/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
 assert versions['playwright']=='1.62.0' and versions['pillow']=='12.1.1' and versions['claude'].startswith('2.1.229 ')
 results=[]
