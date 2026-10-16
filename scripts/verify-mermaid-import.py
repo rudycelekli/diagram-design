@@ -1366,6 +1366,12 @@ def check_standalone_state_regression(tmp: Path) -> None:
     if {node["id"] for node in payload["nodes"]} != {"Idle", "Active", "note", "end", "notebook"}:
         fail("State note boundaries swallowed real states or retained annotation bodies")
 
+    if payload["notes"] != ["inline annotation", "inline annotation"]:
+        fail("Single-line state notes were not retained in source order")
+    digest = run_extract([str(notes)])
+    if "notes: inline annotation; inline annotation" not in digest:
+        fail("Single-line state notes were not printed in the digest")
+
     for side in ("left", "right"):
         unterminated = tmp / f"state-note-unterminated-{side}.mmd"
         unterminated.write_text(

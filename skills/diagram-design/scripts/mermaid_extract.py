@@ -1008,7 +1008,10 @@ def _parse_state(
         if note:
             # A colon marks a single-line note; otherwise ignore its opaque body
             # through `end note` before interpreting states, edges or braces.
-            note_start = line_number if note.group(1) is None else None
+            if note.group(1) is None:
+                note_start = line_number
+            else:
+                diagram.notes.append(clean_label(note.group(1)))
             continue
         if _discard_nonsemantic(diagram, text):
             continue

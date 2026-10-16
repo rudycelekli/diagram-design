@@ -131,5 +131,7 @@ Markdown is the Mermaid analogue of multi-page draw.io. The header lists every f
 | Silently dropping content | Every import ships a fidelity ledger |
 
 Bare state declarations are retained even when disconnected from transitions.
+Single-line state notes are retained as inert text in the JSON `notes` array and
+the Markdown digest, in source order.
 Multiline state notes are opaque annotation text through `end note`; a missing
 terminator exits with the extractor's exit-2 diagnostic and the opening line number.
